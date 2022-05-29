@@ -1,0 +1,70 @@
+﻿<Window x:Class="CalendarApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CalendarApp"
+        mc:Ignorable="d"
+        Title="Calendar"
+        Height="450"
+        Width="800"
+        WindowStartupLocation="CenterScreen"
+        WindowState="Maximized"
+        Name="Window">
+    <Window.Resources>
+        <Style TargetType="FrameworkElement">
+            <Setter Property="Margin"
+                    Value="5" />
+        </Style>
+        <Style x:Key="TBlockCommon"
+               TargetType="TextBlock"
+               BasedOn="{StaticResource {x:Type FrameworkElement}}">
+            <Setter Property="TextAlignment"
+                    Value="Right" />
+            <Setter Property="VerticalAlignment"
+                    Value="Center" />
+        </Style>
+        <Style TargetType="ComboBox"
+               BasedOn="{StaticResource {x:Type FrameworkElement}}">
+            <Setter Property="Width"
+                    Value="200" />
+            <Setter Property="VerticalContentAlignment"
+                    Value="Center" />
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+            <TextBlock Text="Year"
+                       Style="{StaticResource TBlockCommon}" />
+            <ComboBox ItemsSource="{Binding Years, ElementName=Window}"
+                      SelectedItem="{Binding CurrentYear, ElementName=Window}" />
+        </StackPanel>
+        <DataGrid Name="DGridCalendar"
+                  Grid.Row="1"
+                  AutoGenerateColumns="False"
+                  ColumnWidth="auto"
+                  IsReadOnly="True"
+                  CanUserSortColumns="False"
+                  CanUserReorderColumns="False"
+                  CanUserResizeRows="False"
+                  AlternatingRowBackground="LightGray"
+                  SelectionUnit="CellOrRowHeader">
+            <DataGrid.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid Rows="12" />
+                </ItemsPanelTemplate>
+            </DataGrid.ItemsPanel>
+            <DataGrid.RowHeaderTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding DataContext[0], RelativeSource={RelativeSource AncestorType=DataGridRow}}" />
+                </DataTemplate>
+            </DataGrid.RowHeaderTemplate>
+        </DataGrid>
+    </Grid>
+</Window>
