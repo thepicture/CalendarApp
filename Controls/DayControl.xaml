@@ -1,0 +1,31 @@
+﻿<UserControl x:Class="CalendarApp.Controls.DayControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:CalendarApp.Controls"
+             mc:Ignorable="d"
+             Name="Control">
+    <TextBlock Text="{Binding Date.DayOfWeek, FallbackValue=-, ElementName=Control}" TextAlignment="Center">
+        <TextBlock.Style>
+            <Style TargetType="TextBlock">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Text}"
+                                 Value="Saturday">
+                        <Setter Property="Background"
+                                Value="Red" />
+                        <Setter Property="Foreground"
+                                Value="White" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Text}"
+                                 Value="Sunday">
+                        <Setter Property="Background"
+                                Value="Red" />
+                        <Setter Property="Foreground"
+                                Value="White" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </TextBlock.Style>
+    </TextBlock>
+</UserControl>

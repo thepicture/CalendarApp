@@ -62,7 +62,7 @@
             </DataGrid.ItemsPanel>
             <DataGrid.RowHeaderTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding DataContext[0], RelativeSource={RelativeSource AncestorType=DataGridRow}}" />
+                    <TextBlock Text="{Binding DataContext[0], StringFormat=MMMM, RelativeSource={RelativeSource AncestorType=DataGridRow}}" />
                 </DataTemplate>
             </DataGrid.RowHeaderTemplate>
         </DataGrid>

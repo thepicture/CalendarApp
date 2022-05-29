@@ -78,32 +78,37 @@ namespace CalendarApp
             DGridCalendar.Columns.Clear();
             for (int i = 1; i <= 31; i++)
             {
-                DataGridTextColumn column = new DataGridTextColumn
+                FrameworkElementFactory dayFactory = new FrameworkElementFactory(
+                    typeof(Controls.DayControl));
+                dayFactory.SetBinding(Controls.DayControl.DateProperty, new Binding($"[{i}]"));
+                DataGridTemplateColumn column = new DataGridTemplateColumn
                 {
-                    Binding = new Binding($"[{i}]"),
-                    Header = i
+                    Header = i,
+                    CellTemplate = new DataTemplate
+                    {
+                        VisualTree = dayFactory
+                    }
                 };
                 DGridCalendar.Columns.Add(column);
             }
-            List<List<string>> rowsOfColumns = new List<List<string>>();
+            List<List<DateTime?>> rowsOfColumns = new List<List<DateTime?>>();
             for (int i = 1; i <= 12; i++)
             {
-                List<string> column = new List<string>
+                List<DateTime?> column = new List<DateTime?>
                 {
                     new DateTime(CurrentYear, i, 1)
-                        .ToString("MMMM")
                 };
                 for (int j = 1; j <= 31; j++)
                 {
                     if (DateTime.DaysInMonth(CurrentYear, i) >= j)
                     {
                         column
-                            .Add(new DateTime(CurrentYear, i, j)
-                            .ToString("dddd"));
+                            .Add(
+                                new DateTime(CurrentYear, i, j));
                     }
                     else
                     {
-                        column.Add("");
+                        column.Add(default);
                     }
                 }
                 rowsOfColumns.Add(column);
